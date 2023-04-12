@@ -1,13 +1,13 @@
 class DataService {
 
     // static getTodos(callback) {
-    //     fetch('https://643672ab8205915d34f3b508.mockapi.io/todos')
+    //     fetch('https://6436c1b18205915d34fc1963.mockapi.io/todo')
     //         .then(resp => resp.json())
     //         .then(data => callback(data))
     // }
 
     static getTodos() {
-        return fetch('https://643672ab8205915d34f3b508.mockapi.io/todos')
+        return fetch('https://6436c1b18205915d34fc1963.mockapi.io/todo')
             .then(resp => resp.json())
     }
 

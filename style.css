@@ -1,6 +1,11 @@
+
+list-name{
+    text-align: center;
+}
 .todo-title{
 font-weight: bold;
 font-size: x-large;
+
 }
 
 .todo-date{
@@ -14,5 +19,22 @@ color: #515151;
     border-width: 1px;
     border-radius: 10px;
     padding: 5px;
+    box-sizing: border-box;
+    max-width: 300px;
+    margin: 10px;
 
+}
+
+.remove-btn{
+    border-radius: 10px;
+    border: none;
+    background-color: rgb(214, 129, 129);
+
+}
+
+
+
+
+.add-todo{
+    /* display: flex; */
 }

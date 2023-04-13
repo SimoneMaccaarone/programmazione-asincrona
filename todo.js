@@ -1,6 +1,6 @@
-class Todo{
+class Todo {
 
-    constructor(title, creationDate, isCompleted = false, id){
+    constructor(title, creationDate, isCompleted = false, id) {
         this.title = title;
         this._creationDate = creationDate;
         this.isCompleted = isCompleted;
@@ -9,20 +9,31 @@ class Todo{
         }
     }
 
-    get creationDate(){
+    get creationDate() {
+        const millSec = this._creationDate * 1000;      // da Secondi a Millisecondi (perche lo vuole JavaScript)
+        const date = new Date(millSec);    // mettere dentro a new Date la creationDate
+        return date;
+    }
+
+    set creationDate(newDate) {
+        const millSec = newDate.getTime();
+        const sec = millSec / 1000;  // da Milli secondi a Secondi
+        this._creationDate = sec;
 
     }
 
-    set creationDate(newDate){
-
+    compareByTitle(todo2) {
+        return this.title.localeCompare(todo2.title);
     }
 
-    compareByTitle(todo2){
-
-    }
-
-    compareByCreationDate(todo2){
-
+    compareByCreationDate(todo2) {
+        if (this._creationDate > todo2._creationDate) {
+            return -1;
+        } else if (this._creationDate < todo2._creationDate) {
+            return 1;
+        } else {
+            return 0
+        }
     }
 
     static fromTodoObject(todoObject) {

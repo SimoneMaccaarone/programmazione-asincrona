@@ -1,31 +1,25 @@
-class Todolist{
+class Todolist {
 
-    constructor(title, todoArray = []){
+    constructor(title, todoArray = []) {
         this.title = title;
         this.todoArray = todoArray;
     }
 
-    addTodo(todo){
+    addTodo(todo) {
         this.todoArray.push(todo);
     }
 
-    removeTodo(todo){
-        const todoIndex = this.todoArray.indexOf(todo);
-        this.todoArray.splice(todoIndex,1);
-        displayTodos(Todolist);
+
+
+    sortByTitle() {
+        return this.todoArray.sort((todo1, todo2) => todo1.compareByTitle(todo2))
     }
 
-    sortByTitle(){
-
+    sortByCreationDate() {
+        return this.todoArray.sort((todo1, todo2) => todo1.compareByCreationDate(todo2))
     }
 
-    sortByCreationDate(){
 
-    }
-
-    completeTodo(todo){
-
-    }
 
     static fromObjectArray(title, objectArray) {
         const newTodoList = new Todolist(title);
@@ -35,6 +29,19 @@ class Todolist{
             newTodoList.addTodo(newTodo);
         }
         return newTodoList;
+    }
+
+    //  --------- BOTTONI----------
+    completeTodo(todo) {
+        todo.isCompleted = true;
+    }
+
+    removeTodo(todo) {
+        //  SPLICE
+        const todoIndex = this.todoArray.indexOf(todo);
+        this.todoArray.splice(todoIndex, 1);
+        //  FILTER
+        // this.todoArray = this.todoArray.filter((element)=> element !== todo);
     }
 
 }

@@ -1,40 +1,55 @@
+body {
+    background-color: cornflowerblue;
 
-list-name{
+}
+
+.nome-lista {
     text-align: center;
 }
-.todo-title{
-font-weight: bold;
-font-size: x-large;
 
-}
+/* ------------------------------------ */
 
-.todo-date{
-color: #515151;
-}
-
-.todo-li{
+.todo-li {
     display: flex;
     flex-direction: column;
-    border-style: solid ;
+    border-style: solid;
     border-width: 1px;
     border-radius: 10px;
     padding: 5px;
     box-sizing: border-box;
     max-width: 300px;
     margin: 10px;
+    background-color: aqua;
+}
+
+.todo-title {
+    font-weight: bold;
+    font-size: x-large;
+
 
 }
 
-.remove-btn{
+.todo-date {
+    color: #515151;
+}
+
+/* ------------BOTTONI-------------------- */
+
+.complete-btn{
+    border-radius: 10px;
+    border: none;
+    /* max-width: max-content; */
+}
+.remove-btn {
     border-radius: 10px;
     border: none;
     background-color: rgb(214, 129, 129);
-
 }
 
+/* ------------------------------------ */
 
 
 
-.add-todo{
-    /* display: flex; */
-}
+
+/* .add-todo{} */
+

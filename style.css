@@ -1,15 +1,22 @@
+*{
+    text-align: center;
+}
 body {
     background-color: cornflowerblue;
-
 }
 
 .nome-lista {
     text-align: center;
 }
+.todo-list{
+    display: flex;
+    justify-content: center;
+}
 
 /* ------------------------------------ */
 
 .todo-li {
+
     display: flex;
     flex-direction: column;
     border-style: solid;
@@ -20,13 +27,13 @@ body {
     max-width: 300px;
     margin: 10px;
     background-color: aqua;
+    display: flex;
+
 }
 
 .todo-title {
     font-weight: bold;
     font-size: x-large;
-
-
 }
 
 .todo-date {
@@ -47,9 +54,3 @@ body {
 }
 
 /* ------------------------------------ */
-
-
-
-
-/* .add-todo{} */
-

@@ -38,10 +38,9 @@ function displayTodos() { //è globale quindi la vede
         const newLi = document.createElement('li');
         newLi.classList.add('todo-li');
 
-        if(todo.isCompleted){
+        if (todo.isCompleted) {
             newLi.style.backgroundColor = 'chartreuse';
         }
-
 
         const titleSpan = document.createElement('span');
         titleSpan.classList.add('todo-title')
@@ -52,30 +51,37 @@ function displayTodos() { //è globale quindi la vede
         const titleNode = document.createTextNode(todo.title);
         const dateNode = document.createTextNode(todo.creationDate);
 
+        //------ FUNCTION COMPLETE & REMOVE -------
+        createCompleteButton(todo)
+        createRemoveButton(todo)
+
+        //--------- OLD COMPLETE & REMOVE ---------
+
         //------------- COMPLETE -------------
-        const completeButton = document.createElement('button');
-        const textCompleteButton = document.createTextNode('Completato');
-        completeButton.classList.add('complete-btn');
+        // //aggiunta del tasto 'Completato' todo
+        // const completeButton = document.createElement('button');
+        // const textCompleteButton = document.createTextNode('Completato');
+        // completeButton.classList.add('complete-btn');
 
-        completeButton.appendChild(textCompleteButton);
+        // completeButton.appendChild(textCompleteButton);
 
-        completeButton.addEventListener('click', (event) => {
-            superList.completeTodo(todo);
-            displayTodos();
-        })
+        // completeButton.addEventListener('click', (event) => {
+        //     superList.completeTodo(todo);
+        //     displayTodos();
+        // });
 
-        //-------------- REMOVE --------------
-        //aggiunta del tasto rimuovi todo
-        const removeButton = document.createElement('button');
-        const textRemoveButton = document.createTextNode('Rimuovi');
-        removeButton.classList.add('remove-btn');
+        // //-------------- REMOVE --------------
+        // //aggiunta del tasto 'Rimuovi' todo
+        // const removeButton = document.createElement('button');
+        // const textRemoveButton = document.createTextNode('Rimuovi');
+        // removeButton.classList.add('remove-btn');
 
-        removeButton.appendChild(textRemoveButton);
+        // removeButton.appendChild(textRemoveButton);
 
-        removeButton.addEventListener('click', (event) => {
-            superList.removeTodo(todo)
-            displayTodos();
-        });
+        // removeButton.addEventListener('click', (event) => {
+        //     superList.removeTodo(todo)
+        //     displayTodos();
+        // });
 
         //------------------------------------
 
@@ -85,22 +91,48 @@ function displayTodos() { //è globale quindi la vede
         newLi.appendChild(titleSpan);
         newLi.appendChild(dateSpan);
 
-        newLi.appendChild(completeButton)
-        newLi.appendChild(removeButton)
+        newLi.appendChild(createCompleteButton(todo))   // inserisco le funzioni dentro alla li (cioe i todo)
+        newLi.appendChild(createRemoveButton(todo))
 
         todoListUl.appendChild(newLi);
     }
 }
-// ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+// ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
 //  COMPITIiiiiii
-function displayTodos2(){
+function displayTodos2() {
     //template literal
 }
-function displayTodos3(){
-    
+
+//-------------- REMOVE --------------
+function createRemoveButton(todo) {
+    //aggiunta del tasto rimuovi todo
+    const removeButton = document.createElement('button');
+    const textRemoveButton = document.createTextNode('Rimuovi');
+    removeButton.classList.add('remove-btn');
+
+    removeButton.appendChild(textRemoveButton);
+
+    removeButton.addEventListener('click', (event) => {
+        superList.removeTodo(todo)
+        displayTodos();
+    });
+    return removeButton;
 }
-// creare ache una funzione per i tasti e altro
-// dividire la funzione grande in piccole funzioni
+//------------- COMPLETE -------------
+function createCompleteButton(todo) {
+    const completeButton = document.createElement('button');
+    const textCompleteButton = document.createTextNode('Completato');
+    completeButton.classList.add('complete-btn');
+
+    completeButton.appendChild(textCompleteButton);
+
+    completeButton.addEventListener('click', (event) => {
+        superList.completeTodo(todo);
+        displayTodos();
+    });
+    return completeButton;
+
+}
 // ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
 
 //  FUNZIONI x BOTTONI 

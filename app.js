@@ -20,7 +20,7 @@ function fillTodoArrayFromServer(data) {
 
 function displayTodos() { //è globale quindi la vede
 
-    console.log(superList)
+    console.log(superList);
     const todoListTitle = document.getElementById('list-name');
     const todoListUl = document.getElementById('todo-list');
 
@@ -35,25 +35,32 @@ function displayTodos() { //è globale quindi la vede
     for (let i = 0; i < superList.todoArray.length; i++) {
         const todo = superList.todoArray[i];
 
+        // creazione dell' elenco
         const newLi = document.createElement('li');
         newLi.classList.add('todo-li');
 
+        //condizione se il todo è completato o no
         if (todo.isCompleted) {
             newLi.style.backgroundColor = 'chartreuse';
         }
 
-        const titleSpan = document.createElement('span');
-        titleSpan.classList.add('todo-title')
+        //---------- TITLE & DATE ---------
+        createdTitleOfTodo(todo);
+        createdDateOfTodo(todo);
 
-        const dateSpan = document.createElement('span');
-        dateSpan.classList.add('todo-date');
+        //---------- OLD  TAG ----------
+        // const titleSpan = document.createElement('span');
+        // titleSpan.classList.add('todo-title')
 
-        const titleNode = document.createTextNode(todo.title);
-        const dateNode = document.createTextNode(todo.creationDate);
+        // const dateSpan = document.createElement('span');
+        // dateSpan.classList.add('todo-date');
 
-        //------ FUNCTION COMPLETE & REMOVE -------
-        createCompleteButton(todo)
-        createRemoveButton(todo)
+        // const titleNode = document.createTextNode(todo.title);
+        // const dateNode = document.createTextNode(todo.creationDate);
+
+        //----------- COMPLETE & REMOVE -----------
+        createCompleteButton(todo);
+        createRemoveButton(todo);
 
         //--------- OLD COMPLETE & REMOVE ---------
 
@@ -85,25 +92,42 @@ function displayTodos() { //è globale quindi la vede
 
         //------------------------------------
 
-        titleSpan.appendChild(titleNode);
-        dateSpan.appendChild(dateNode);
+        // titleSpan.appendChild(titleNode); 9u07907
+        // dateSpan.appendChild(dateNode);
 
-        newLi.appendChild(titleSpan);
-        newLi.appendChild(dateSpan);
+        newLi.appendChild(createdTitleOfTodo(todo));       //newLi.appendChild(titleSpan); 
+        newLi.appendChild(createdDateOfTodo(todo));       // newLi.appendChild(dateSpan);
 
-        newLi.appendChild(createCompleteButton(todo))   // inserisco le funzioni dentro alla li (cioe i todo)
-        newLi.appendChild(createRemoveButton(todo))
+        newLi.appendChild(createCompleteButton(todo));  // inserisco le funzioni dentro alla li (cioe i todo)
+        newLi.appendChild(createRemoveButton(todo));
 
         todoListUl.appendChild(newLi);
     }
-}
-// ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
-//  COMPITIiiiiii
-function displayTodos2() {
-    //template literal
+}// ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+
+//-------------- FUNCTIONs TITLE & DATE --------------
+function createdTitleOfTodo(todo) {
+
+    const titleSpan = document.createElement('span');
+    titleSpan.classList.add('todo-title');
+
+    const titleNode = document.createTextNode(todo.title);
+    titleSpan.appendChild(titleNode);
+
+    return titleSpan;
 }
 
-//-------------- REMOVE --------------
+function createdDateOfTodo(todo) {
+    const dateSpan = document.createElement('span');
+    dateSpan.classList.add('todo-date');
+
+    const dateNode = document.createTextNode(todo.creationDate);
+    dateSpan.appendChild(dateNode);
+
+    return dateSpan;
+}
+
+//-------------- FUNCTION REMOVE --------------
 function createRemoveButton(todo) {
     //aggiunta del tasto rimuovi todo
     const removeButton = document.createElement('button');
@@ -113,12 +137,13 @@ function createRemoveButton(todo) {
     removeButton.appendChild(textRemoveButton);
 
     removeButton.addEventListener('click', (event) => {
-        superList.removeTodo(todo)
+        superList.removeTodo(todo);
         displayTodos();
     });
     return removeButton;
 }
-//------------- COMPLETE -------------
+
+//------------- FUNCTION COMPLETE -------------
 function createCompleteButton(todo) {
     const completeButton = document.createElement('button');
     const textCompleteButton = document.createTextNode('Completato');

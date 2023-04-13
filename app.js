@@ -48,53 +48,10 @@ function displayTodos() { //è globale quindi la vede
         createdTitleOfTodo(todo);
         createdDateOfTodo(todo);
 
-        //---------- OLD  TAG ----------
-        // const titleSpan = document.createElement('span');
-        // titleSpan.classList.add('todo-title')
-
-        // const dateSpan = document.createElement('span');
-        // dateSpan.classList.add('todo-date');
-
-        // const titleNode = document.createTextNode(todo.title);
-        // const dateNode = document.createTextNode(todo.creationDate);
-
         //----------- COMPLETE & REMOVE -----------
         createCompleteButton(todo);
         createRemoveButton(todo);
-
-        //--------- OLD COMPLETE & REMOVE ---------
-
-        //------------- COMPLETE -------------
-        // //aggiunta del tasto 'Completato' todo
-        // const completeButton = document.createElement('button');
-        // const textCompleteButton = document.createTextNode('Completato');
-        // completeButton.classList.add('complete-btn');
-
-        // completeButton.appendChild(textCompleteButton);
-
-        // completeButton.addEventListener('click', (event) => {
-        //     superList.completeTodo(todo);
-        //     displayTodos();
-        // });
-
-        // //-------------- REMOVE --------------
-        // //aggiunta del tasto 'Rimuovi' todo
-        // const removeButton = document.createElement('button');
-        // const textRemoveButton = document.createTextNode('Rimuovi');
-        // removeButton.classList.add('remove-btn');
-
-        // removeButton.appendChild(textRemoveButton);
-
-        // removeButton.addEventListener('click', (event) => {
-        //     superList.removeTodo(todo)
-        //     displayTodos();
-        // });
-
-        //------------------------------------
-
-        // titleSpan.appendChild(titleNode); 9u07907
-        // dateSpan.appendChild(dateNode);
-
+    
         newLi.appendChild(createdTitleOfTodo(todo));       //newLi.appendChild(titleSpan); 
         newLi.appendChild(createdDateOfTodo(todo));       // newLi.appendChild(dateSpan);
 
@@ -170,3 +127,47 @@ function orderByCreationDate() {
     superList.sortByCreationDate();
     displayTodos();
 }
+
+
+// OLD CODES
+        //---------- OLD  TAG ----------
+        // const titleSpan = document.createElement('span');
+        // titleSpan.classList.add('todo-title')
+
+        // const dateSpan = document.createElement('span');
+        // dateSpan.classList.add('todo-date');
+
+        // const titleNode = document.createTextNode(todo.title);
+        // const dateNode = document.createTextNode(todo.creationDate);
+
+
+        //--------- OLD COMPLETE & REMOVE ---------
+        //------------- COMPLETE -------------
+        // //aggiunta del tasto 'Completato' todo
+        // const completeButton = document.createElement('button');
+        // const textCompleteButton = document.createTextNode('Completato');
+        // completeButton.classList.add('complete-btn');
+
+        // completeButton.appendChild(textCompleteButton);
+
+        // completeButton.addEventListener('click', (event) => {
+        //     superList.completeTodo(todo);
+        //     displayTodos();
+        // });
+
+        // //-------------- REMOVE --------------
+        // //aggiunta del tasto 'Rimuovi' todo
+        // const removeButton = document.createElement('button');
+        // const textRemoveButton = document.createTextNode('Rimuovi');
+        // removeButton.classList.add('remove-btn');
+
+        // removeButton.appendChild(textRemoveButton);
+
+        // removeButton.addEventListener('click', (event) => {
+        //     superList.removeTodo(todo)
+        //     displayTodos();
+        // });
+        //------------------------------------
+
+        // titleSpan.appendChild(titleNode); 9u07907
+        // dateSpan.appendChild(dateNode);

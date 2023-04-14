@@ -1,12 +1,12 @@
 let superList = new Todolist('lista Super Figa');  //variabile golobale
 
-displayTodosWithAlt96(); // display => la funzione che mostra tutto
+displayTodos(); // display => la funzione che mostra tutto
 // displayTodos()       // il display abbreviato con funzioni
 //displayTodosOld()    //  il display "vecchio" 
 
 DataService.getTodos().then(data => {
     fillTodoArrayFromServer(data);
-    displayTodosWithAlt96();
+    displayTodos();
 })
 
 function fillTodoArrayFromServer(data) {
@@ -20,103 +20,113 @@ function fillTodoArrayFromServer(data) {
 
 
 
-// function displayTodos() { //è globale quindi la vede
+function displayTodos() { //è globale quindi la vede
+    console.log(superList);
 
-//     console.log(superList);
-//     const todoListTitle = document.getElementById('list-name');
-//     const todoListUl = document.getElementById('todo-list');
-
-
-//     const titleNode = document.createTextNode(superList.title);
-//     todoListTitle.innerHTML = ''; // pulisci tutto quello che ce dentro a list title
-//     todoListTitle.appendChild(titleNode);
+    const todoListTitle = document.getElementById('list-name');
+    const todoListUl = document.getElementById('todo-list');
 
 
-//     todoListUl.innerHTML = '';
+    const titleNode = document.createTextNode(superList.title);
+    todoListTitle.innerHTML = ''; // pulisci tutto quello che ce dentro a list title
+    todoListTitle.appendChild(titleNode);
 
-//     for (let i = 0; i < superList.todoArray.length; i++) {
-//         const todo = superList.todoArray[i];
 
-//         // creazione dell' elenco
-//         const newLi = document.createElement('li');
-//         newLi.classList.add('todo-li');
-//         //condizione se il todo è completato o no
-//         if (todo.isCompleted) {
-//             newLi.style.backgroundColor = 'chartreuse';
-//         }
+    todoListUl.innerHTML = '';
 
-//         //---------- TITLE & DATE ---------
-//         createdTitleOfTodo(todo);
-//         createdDateOfTodo(todo);
+    for (let i = 0; i < superList.todoArray.length; i++) {
+        const todo = superList.todoArray[i];
 
-//         //----------- COMPLETE & REMOVE -----------
-//         createCompleteButton(todo);
-//         createRemoveButton(todo);
+        // creazione dell' elenco
+        const newLi = document.createElement('li');
+        newLi.classList.add('todo-li');
+        //condizione se il todo è completato o no
+        if (todo.isCompleted) {
+            newLi.style.backgroundColor = 'chartreuse';
+        }else if(todo.isCompleted===true){
+            newLi.style.backgroundColor = 'aqua';
+        }
 
-//         newLi.appendChild(createdTitleOfTodo(todo));       //newLi.appendChild(titleSpan); 
-//         newLi.appendChild(createdDateOfTodo(todo));       // newLi.appendChild(dateSpan);
+        //---------- TITLE & DATE ---------
+        createdTitleOfTodo(todo);
+        createdDateOfTodo(todo);
 
-//         newLi.appendChild(createCompleteButton(todo));  // inserisco le funzioni dentro alla li (cioe i todo)
-//         newLi.appendChild(createRemoveButton(todo));
+        //----------- COMPLETE & REMOVE -----------
+        createCompleteButton(todo);
+        createRemoveButton(todo);
 
-//         todoListUl.appendChild(newLi);
-//     }
-// }// ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+        newLi.appendChild(createdTitleOfTodo(todo));       //newLi.appendChild(titleSpan); 
+        newLi.appendChild(createdDateOfTodo(todo));       // newLi.appendChild(dateSpan);
+
+        newLi.appendChild(createCompleteButton(todo));  // inserisco le funzioni dentro alla li (cioe i todo)
+        newLi.appendChild(createRemoveButton(todo));
+
+        todoListUl.appendChild(newLi);
+    }
+}// ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
 
 //-------------- FUNCTIONs TITLE & DATE --------------
-// function createdTitleOfTodo(todo) {
+function createdTitleOfTodo(todo) {
 
-//     const titleSpan = document.createElement('span');
-//     titleSpan.classList.add('todo-title');
+    const titleSpan = document.createElement('span');
+    titleSpan.classList.add('todo-title');
 
-//     const titleNode = document.createTextNode(todo.title);
-//     titleSpan.appendChild(titleNode);
+    const titleNode = document.createTextNode(todo.title);
+    titleSpan.appendChild(titleNode);
 
-//     return titleSpan;
-// }
+    return titleSpan;
+}
 
-// function createdDateOfTodo(todo) {
-//     const dateSpan = document.createElement('span');
-//     dateSpan.classList.add('todo-date');
+function createdDateOfTodo(todo) {
+    const dateSpan = document.createElement('span');
+    dateSpan.classList.add('todo-date');
 
-//     const dateNode = document.createTextNode(todo.creationDate);
-//     dateSpan.appendChild(dateNode);
+    const dateNode = document.createTextNode(todo.creationDate);
+    dateSpan.appendChild(dateNode);
 
-//     return dateSpan;
-// }
+    return dateSpan;
+}
 
-// //-------------- FUNCTION REMOVE --------------
-// function createRemoveButton(todo) {
-//     //aggiunta del tasto rimuovi todo
-//     const removeButton = document.createElement('button');
-//     const textRemoveButton = document.createTextNode('Rimuovi');
-//     removeButton.classList.add('remove-btn');
+//------------- FUNCTION COMPLETE -------------
+function createCompleteButton(todo) {
+    const completeButton = document.createElement('button');
+    const textCompleteButton = document.createTextNode('Completato');
+    completeButton.classList.add('complete-btn');
+    completeButton.appendChild(textCompleteButton);
+    
+    completeButton.addEventListener('click', (event) => {
+        superList.completeTodo(todo);
+        DataService.putTodo(todo).then(updateTodo=>{
+            displayTodos();
+        })
+    });
+    // completeButton.addEventListener('click', (event) => {
+    //     superList.notCompleteTodo(todo);
+    //     DataService.putTodo(todo).then(updateTodo=>{
+    //         displayTodos();
+    //     })
+    // });
+    return completeButton;
+}
 
-//     removeButton.appendChild(textRemoveButton);
 
-//     removeButton.addEventListener('click', (event) => {
-//         superList.removeTodo(todo);
-//         displayTodos();
-//     });
-//     return removeButton;
-// }
+//-------------- FUNCTION REMOVE --------------
+function createRemoveButton(todo) {
+    //aggiunta del tasto rimuovi todo
+    const removeButton = document.createElement('button');
+    const textRemoveButton = document.createTextNode('Rimuovi');
+    removeButton.classList.add('remove-btn');
+    removeButton.appendChild(textRemoveButton);
 
-// //------------- FUNCTION COMPLETE -------------
-// function createCompleteButton(todo) {
-//     const completeButton = document.createElement('button');
-//     const textCompleteButton = document.createTextNode('Completato');
-//     completeButton.classList.add('complete-btn');
+    removeButton.addEventListener('click', (event) => {
+        DataService.deleteTodo(todo).then(removedTodo => { 
+            superList.removeTodo(todo);
+            displayTodos();
+        });
+    });
+    return removeButton;
+}// ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ 
 
-//     completeButton.appendChild(textCompleteButton);
-
-//     completeButton.addEventListener('click', (event) => {
-//         superList.completeTodo(todo);
-//         displayTodos();
-//     });
-//     return completeButton;
-
-// }
-// ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ 
 
 //  FUNZIONI x BOTTONI 
 function orderByTitle() {
@@ -131,42 +141,42 @@ function orderByCreationDate() {
 
 
 // DISPLAY CON STRINGA INTERPOLATA
-function displayTodosWithAlt96() {
+// function displayTodosWithAlt96() {
 
-    const todoListTitle = document.getElementById('list-name');
-    todoListTitle.innerHTML = superList.title;
+//     const todoListTitle = document.getElementById('list-name');
+//     todoListTitle.innerHTML = superList.title;
 
-    const todoListUl = document.getElementById('todo-list');
+//     const todoListUl = document.getElementById('todo-list');
 
-    todoListUl.innerHTML = ``;
-    //  CREAZIONE HTML
-    for (let i = 0; i < superList.todoArray.length; i++) {
-        const todo = superList.todoArray[i];
-        todoListUl.innerHTML += `<li class="todo-li ${todo.isCompleted ? 'complete-btn': ''}">
-                                    <span class="todo-title"> ${todo.title} </span>
-                                    <span class="todo-date"> ${todo.creationDate}</span>
-                                    <button id="complete-btn${i}"> Completato</button>
-                                    <button id="remove-btn${i}"> Rimuovi </button>
-                                </li>`
-    }
-    //  AZIONE DEI TASTI Complete E Remove
-    for (let i = 0; i < superList.todoArray.length; i++) {
-        const todo = superList.todoArray[i];
+//     todoListUl.innerHTML = ``;
+//     //  CREAZIONE HTML
+//     for (let i = 0; i < superList.todoArray.length; i++) {
+//         const todo = superList.todoArray[i];
+//         todoListUl.innerHTML += `<li class="todo-li ${todo.isCompleted ? 'complete-btn': ''}">
+//                                     <span class="todo-title"> ${todo.title} </span>
+//                                     <span class="todo-date"> ${todo.creationDate}</span>
+//                                     <button id="complete-btn${i}"> Completato</button>
+//                                     <button id="remove-btn${i}"> Rimuovi </button>
+//                                 </li>`
+//     }
+//     //  AZIONE DEI TASTI Complete E Remove
+//     for (let i = 0; i < superList.todoArray.length; i++) {
+//         const todo = superList.todoArray[i];
 
-        const completeButton = document.getElementById(`complete-btn${i}`);
-        const removeButton = document.getElementById(`remove-btn${i}`);
+//         const completeButton = document.getElementById(`complete-btn${i}`);
+//         const removeButton = document.getElementById(`remove-btn${i}`);
 
-        completeButton.addEventListener('click', (event) => {
-            superList.completeTodo(todo);
-            displayTodosWithAlt96();
-        });
+//         completeButton.addEventListener('click', (event) => {
+//             superList.completeTodo(todo);
+//             displayTodosWithAlt96();
+//         });
 
-        removeButton.addEventListener('click', (event) => {
-            superList.removeTodo(todo)
-            displayTodosWithAlt96();
-        });
-    }
-}
+//         removeButton.addEventListener('click', (event) => {
+//             superList.removeTodo(todo)
+//             displayTodosWithAlt96();
+//         });
+//     }
+// }
 
 // DISPLAY LUNGO "OLD"
 // function displayTodosOld() { //è globale quindi la vede

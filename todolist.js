@@ -35,8 +35,11 @@ class Todolist {
     completeTodo(todo) {
         todo.isCompleted = true;
         // displayTodosWithAlt96();
-        
     }
+    // notCompleteTodo(todo) {
+    //     todo.isCompleted = false;
+    //     // displayTodosWithAlt96();   
+    // }
 
     removeTodo(todo) {
         //  SPLICE

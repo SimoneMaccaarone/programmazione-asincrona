@@ -34,12 +34,15 @@ class Todolist {
     //  --------- BOTTONI----------
     completeTodo(todo) {
         todo.isCompleted = true;
+        // displayTodosWithAlt96();
+        
     }
 
     removeTodo(todo) {
         //  SPLICE
         const todoIndex = this.todoArray.indexOf(todo);
         this.todoArray.splice(todoIndex, 1);
+        // displayTodosWithAlt96();
         //  FILTER
         // this.todoArray = this.todoArray.filter((element)=> element !== todo);
     }

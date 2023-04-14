@@ -1,10 +1,12 @@
 let superList = new Todolist('lista Super Figa');  //variabile golobale
 
-displayTodos2();
+displayTodosWithAlt96(); // display => la funzione che mostra tutto
+// displayTodos()       // il display abbreviato con funzioni
+//displayTodosOld()    //  il display "vecchio" 
 
 DataService.getTodos().then(data => {
     fillTodoArrayFromServer(data);
-    displayTodos2();
+    displayTodosWithAlt96();
 })
 
 function fillTodoArrayFromServer(data) {
@@ -14,9 +16,9 @@ function fillTodoArrayFromServer(data) {
         const todo = new Todo(object.title, object.creationDate, object.isCompleted, object.id);
         superList.addTodo(todo);
     }
-}
+}//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
 
-//▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+
 
 // function displayTodos() { //è globale quindi la vede
 
@@ -50,7 +52,7 @@ function fillTodoArrayFromServer(data) {
 //         //----------- COMPLETE & REMOVE -----------
 //         createCompleteButton(todo);
 //         createRemoveButton(todo);
-    
+
 //         newLi.appendChild(createdTitleOfTodo(todo));       //newLi.appendChild(titleSpan); 
 //         newLi.appendChild(createdDateOfTodo(todo));       // newLi.appendChild(dateSpan);
 
@@ -114,7 +116,7 @@ function fillTodoArrayFromServer(data) {
 //     return completeButton;
 
 // }
-// ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+// ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ 
 
 //  FUNZIONI x BOTTONI 
 function orderByTitle() {
@@ -129,30 +131,45 @@ function orderByCreationDate() {
 
 
 // DISPLAY CON STRINGA INTERPOLATA
-function displayTodos2(){
+function displayTodosWithAlt96() {
 
     const todoListTitle = document.getElementById('list-name');
-    todoListTitle.innerHTML= superList.title;
+    todoListTitle.innerHTML = superList.title;
 
     const todoListUl = document.getElementById('todo-list');
 
-    // const htmlTemplate = ``
+    todoListUl.innerHTML = ``;
+    //  CREAZIONE HTML
     for (let i = 0; i < superList.todoArray.length; i++) {
         const todo = superList.todoArray[i];
-        todoListUl.innerHTML+=
-        `<li class="todo-li">
+        todoListUl.innerHTML += `<li class="todo-li ${todo.isCompleted ? 'complete-btn': ''}">
+                                    <span class="todo-title"> ${todo.title} </span>
+                                    <span class="todo-date"> ${todo.creationDate}</span>
+                                    <button id="complete-btn${i}"> Completato</button>
+                                    <button id="remove-btn${i}"> Rimuovi </button>
+                                </li>`
+    }
+    //  AZIONE DEI TASTI Complete E Remove
+    for (let i = 0; i < superList.todoArray.length; i++) {
+        const todo = superList.todoArray[i];
 
-        <span class="todo-title"> ${todo.title} </span>
-        <span class="todo-date"> ${todo.creationDate}</span>
-        <button id="complete-btn"${i}> Completato</button>
-        <button id="remove-btn"${i}> Rimuovi </button>
+        const completeButton = document.getElementById(`complete-btn${i}`);
+        const removeButton = document.getElementById(`remove-btn${i}`);
 
-        </li>`
+        completeButton.addEventListener('click', (event) => {
+            superList.completeTodo(todo);
+            displayTodosWithAlt96();
+        });
+
+        removeButton.addEventListener('click', (event) => {
+            superList.removeTodo(todo)
+            displayTodosWithAlt96();
+        });
     }
 }
 
-// OLD CODES
-// function displayTodos() { //è globale quindi la vede
+// DISPLAY LUNGO "OLD"
+// function displayTodosOld() { //è globale quindi la vede
 //     console.log(superList)
 //     const todoListTitle = document.getElementById('list-name');
 //     const todoListUl = document.getElementById('todo-list');

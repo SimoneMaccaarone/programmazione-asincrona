@@ -51,7 +51,7 @@ body {
 .complete-btn{
     border-radius: 10px;
     border: none;
-    /* max-width: max-content; */
+    background-color: chartreuse;
 }
 .remove-btn {
     border-radius: 10px;
